@@ -9,7 +9,8 @@ const Question = sequelize.define('Question', {
     underscored: true,
     timestamps: true,
     hooks : {
-        afterCreate: console.log("AFTER CREATE QUESTION")
+        afterCreate: console.log("AFTER CREATE QUESTION"),
+        afterUpdate: console.log("AFTER UPDATE QUESTION")
     }
 });
 
@@ -21,7 +22,9 @@ const Answer = sequelize.define('Answer', {
     underscored: true,
     timestamps: true,
     hooks : {
-        afterCreate: console.log("AFTER CREATE ANSWER")
+        afterCreate: console.log("AFTER CREATE ANSWER"),
+        afterUpdate: console.log("AFTER UPDATE ANSWER"),
+        afterDestroy: console.log("AFTER DESTROY ANSWER")
     }
 });
 
