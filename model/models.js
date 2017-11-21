@@ -30,6 +30,8 @@ const Keyword = sequelize.define('Keyword', {
 
 Question.hasMany(Answer, {foreignKey: 'question_id'});
 Question.hasMany(Keyword, {foreignKey: 'question_id'});
+Answer.belongsTo(Question, {foreignKey: 'question_id', targetKey: 'question_id'});
+Keyword.belongsTo(Question, {foreignKey: 'question_id', targetKey: 'question_id'});
 
 Question.sync().then((result) => {
     console.log('Question Sync Success');
