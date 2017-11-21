@@ -7,7 +7,10 @@ const Question = sequelize.define('Question', {
 }, {
     tableName: 'question',
     underscored: true,
-    timestamps: true
+    timestamps: true,
+    hooks : {
+        afterCreate: console.log("AFTER CREATE QUESTION")
+    }
 });
 
 const Answer = sequelize.define('Answer', {
@@ -16,7 +19,10 @@ const Answer = sequelize.define('Answer', {
 }, {
     tableName: 'answer',
     underscored: true,
-    timestamps: true
+    timestamps: true,
+    hooks : {
+        afterCreate: console.log("AFTER CREATE ANSWER")
+    }
 });
 
 const Keyword = sequelize.define('Keyword', {
