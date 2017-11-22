@@ -2,17 +2,13 @@ const Sequelize = require('../config/sequelize').Sequelize;
 const sequelize = require('../config/sequelize').sequelize;
 
 const Question = sequelize.define('Question', {
-    question_id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+    question_id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false},
     title: {type: Sequelize.STRING, allowNull: true},
     content: {type: Sequelize.STRING, allowNull: true}
 }, {
     tableName: 'question',
     underscored: true,
-    timestamps: true,
-    hooks: {
-        afterCreate: console.log("AFTER CREATE QUESTION"),
-        afterUpdate: console.log("AFTER UPDATE QUESTION")
-    }
+    timestamps: true
 });
 
 const Answer = sequelize.define('Answer', {
@@ -21,12 +17,7 @@ const Answer = sequelize.define('Answer', {
 }, {
     tableName: 'answer',
     underscored: true,
-    timestamps: true,
-    hooks: {
-        afterCreate: console.log("AFTER CREATE ANSWER"),
-        afterUpdate: console.log("AFTER UPDATE ANSWER"),
-        afterDestroy: console.log("AFTER DESTROY ANSWER")
-    }
+    timestamps: true
 });
 
 const Keyword = sequelize.define('Keyword', {
@@ -38,8 +29,8 @@ const Keyword = sequelize.define('Keyword', {
     timestamps: true
 });
 
-Question.hasMany(Answer, {foreignKey: 'question_id'});
-Question.hasMany(Keyword, {foreignKey: 'question_id'});
+Question.hasMany(Answer, {foreignKey: 'question_id', onDelete: 'CASCADE'});
+Question.hasMany(Keyword, {foreignKey: 'question_id', onDelete: 'CASCADE'});
 Answer.belongsTo(Question, {foreignKey: 'question_id', targetKey: 'question_id'});
 Keyword.belongsTo(Question, {foreignKey: 'question_id', targetKey: 'question_id'});
 
