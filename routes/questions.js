@@ -19,8 +19,8 @@ function sendQuestions(req, res, next) {
             {model: Answer},
             {model: Keyword}
         ]
-    }).then((result) => {
-        res.send(result);
+    }).then((questions) => {
+        res.send(questions);
     }).catch((err) => {
         return next(err);
     });
@@ -32,8 +32,8 @@ function addQuestion(req, res, next) {
     Question.create({
         title: title,
         content: content
-    }).then((result) => {
-        res.send(result);
+    }).then((question) => {
+        res.send(question);
     }).catch((err) => {
         return next(err);
     });
@@ -47,8 +47,8 @@ function sendQuestion(req, res, next) {
             {model: Answer},
             {model: Keyword}
         ]
-    }).then((result) => {
-        res.send(result);
+    }).then((question) => {
+        res.send(question);
     }).catch((err) => {
         return next(err);
     });
@@ -57,10 +57,9 @@ function sendQuestion(req, res, next) {
 function deleteQuestion(req, res, next) {
     const questionId = req.params.questionId;
     Question.destroy({
-        where: {question_id: questionId},
-        cascade : true
-    }).then((result) => {
-        res.send(result);
+        where: {question_id: questionId}
+    }).then((affected) => {
+        res.send(affected.toString());
     }).catch((err) => {
         return next(err);
     });
