@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(
-    'databasename',
-    'username',
+    'database_name',
+    'user_name',
     'password',
     {
         'host' : 'localhost',
@@ -9,4 +9,14 @@ const sequelize = new Sequelize(
     }
 );
 
-module.exports = sequelize;
+sequelize.authenticate()
+    .then(() => {
+        console.log("SEQUELIZE AUTHENTICATE SUCCESS");
+    })
+    .catch((err) => {
+        console.log("SEQUELIZE AUTHENTICATE FAIL", err);
+    })
+    .done();
+
+module.exports.Sequelize = Sequelize;
+module.exports.sequelize = sequelize;

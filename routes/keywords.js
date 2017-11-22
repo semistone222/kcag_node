@@ -3,11 +3,11 @@ const router = express.Router();
 
 const Keyword = require('../model/models.js').Keyword;
 
-router.route('/keywords')
+router.route('/')
     .get(sendKeywords)
     .post(addKeyword);
 
-router.route('/keywords/:keywordId')
+router.route('/:keywordId')
     .get(sendKeyword)
     .delete(deleteKeyword);
 

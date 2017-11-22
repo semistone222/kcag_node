@@ -1,4 +1,5 @@
-const sequelize = require('../config/sequelize');
+const Sequelize = require('../config/sequelize').Sequelize;
+const sequelize = require('../config/sequelize').sequelize;
 
 const Question = sequelize.define('Question', {
     question_id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
@@ -8,7 +9,7 @@ const Question = sequelize.define('Question', {
     tableName: 'question',
     underscored: true,
     timestamps: true,
-    hooks : {
+    hooks: {
         afterCreate: console.log("AFTER CREATE QUESTION"),
         afterUpdate: console.log("AFTER UPDATE QUESTION")
     }
@@ -21,7 +22,7 @@ const Answer = sequelize.define('Answer', {
     tableName: 'answer',
     underscored: true,
     timestamps: true,
-    hooks : {
+    hooks: {
         afterCreate: console.log("AFTER CREATE ANSWER"),
         afterUpdate: console.log("AFTER UPDATE ANSWER"),
         afterDestroy: console.log("AFTER DESTROY ANSWER")
@@ -43,22 +44,22 @@ Answer.belongsTo(Question, {foreignKey: 'question_id', targetKey: 'question_id'}
 Keyword.belongsTo(Question, {foreignKey: 'question_id', targetKey: 'question_id'});
 
 Question.sync().then((result) => {
-    console.log('Question Sync Success');
+    console.log('QUESTION SYNC SUCCESS');
 
     Answer.sync().then((result) => {
-        console.log('Answer Sync Success');
-    }).catch((error) => {
-        console.log('Answer Sync Fail', error.message);
+        console.log('ANSWER SYNC SUCCESS');
+    }).catch((err) => {
+        console.log('ANSWER SYNC FAIL', err.message);
     });
 
     Keyword.sync().then((result) => {
-        console.log('Keyword Sync Success');
-    }).catch((error) => {
-        console.log('Keyword Sync Fail', error.message);
+        console.log('KEYWORD SYNC SUCCESS');
+    }).catch((err) => {
+        console.log('KEYWORD SYNC FAIL', err.message);
     });
 
-}).catch((error) => {
-    console.log('Question Sync Fail', error.message);
+}).catch((err) => {
+    console.log('QUESTION SYNC FAIL', err.message);
 });
 
 module.exports.Question = Question;

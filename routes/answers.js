@@ -3,11 +3,11 @@ const router = express.Router();
 
 const Answer = require('../model/models.js').Answer;
 
-router.route('/answers')
+router.route('/')
     .get(sendAnswers)
     .post(addAnswer);
 
-router.route('/answer/:answerId')
+router.route('/:answerId')
     .get(sendAnswer)
     .delete(deleteAnswer);
 

@@ -5,11 +5,11 @@ const Question = require('../model/models.js').Question;
 const Answer = require('../model/models.js').Answer;
 const Keyword = require('../model/models.js').Keyword;
 
-router.route('/questions')
+router.route('/')
     .get(sendQuestions)
     .post(addQuestion);
 
-router.route('/questions/:questionId')
+router.route('/:questionId')
     .get(sendQuestion)
     .delete(deleteQuestion);
 
@@ -21,8 +21,8 @@ function sendQuestions(req, res, next) {
         ]
     }).then((result) => {
         res.send(result);
-    }).catch((error) => {
-        return next(error);
+    }).catch((err) => {
+        return next(err);
     });
 }
 
@@ -34,34 +34,35 @@ function addQuestion(req, res, next) {
         content: content
     }).then((result) => {
         res.send(result);
-    }).catch((error) => {
-        return next(error);
+    }).catch((err) => {
+        return next(err);
     });
 }
 
 function sendQuestion(req, res, next) {
     const questionId = req.params.questionId;
     Question.findOne({
-        question_id: questionId,
+        where: {question_id: questionId},
         include: [
             {model: Answer},
             {model: Keyword}
         ]
     }).then((result) => {
         res.send(result);
-    }).catch((error) => {
-        return next(error);
+    }).catch((err) => {
+        return next(err);
     });
 }
 
 function deleteQuestion(req, res, next) {
     const questionId = req.params.questionId;
     Question.destroy({
-        question_id: questionId
+        where: {question_id: questionId},
+        cascade : true
     }).then((result) => {
         res.send(result);
-    }).catch((error) => {
-        return next(error);
+    }).catch((err) => {
+        return next(err);
     });
 }
 
